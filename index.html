@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domain Parked</title>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-gray-900 to-gray-800 min-h-screen flex flex-col items-center justify-center text-white"
+      x-data="{ domain: window.location.hostname }">
+
+    <div class="container mx-auto px-4 text-center" id="content">
+        <h1 class="text-6xl font-bold mb-4 opacity-0" id="domain" x-text="domain"></h1>
+        <p class="text-xl text-gray-400 mb-8 opacity-0" id="message">This domain is currently parked</p>
+        
+        <div class="w-16 h-16 mx-auto mb-8 opacity-0" id="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                      d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+            </svg>
+        </div>
+    </div>
+
+    <footer class="fixed bottom-0 w-full p-4 text-center text-gray-400 opacity-0" id="footer">
+        Domain parked by <a href="https://debug.dog" class="text-white hover:text-blue-400 transition-colors">debug.dog</a>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tl = gsap.timeline();
+            
+            tl.to("#domain", {
+                opacity: 1,
+                y: 20,
+                duration: 1,
+                ease: "power4.out"
+            })
+            .to("#message", {
+                opacity: 1,
+                y: 20,
+                duration: 1,
+                ease: "power4.out"
+            }, "-=0.5")
+            .to("#icon", {
+                opacity: 1,
+                scale: 1.2,
+                duration: 0.5,
+                ease: "back.out(1.7)"
+            }, "-=0.5")
+            .to("#footer", {
+                opacity: 1,
+                y: -20,
+                duration: 1,
+                ease: "power4.out"
+            }, "-=0.5");
+
+            // Continuous floating animation for the icon
+            gsap.to("#icon", {
+                y: 15,
+                duration: 2,
+                repeat: -1,
+                yoyo: true,
+                ease: "power1.inOut"
+            });
+        });
+    </script>
+</body>
+</html>
